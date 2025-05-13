@@ -1,0 +1,137 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0; padding: 0;
+  background: #ffffff; /* белый фон */
+  color: #003366; /* тёмно-синий текст */
+}
+header {
+  background-color: #004080; /* насыщенный синий */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+nav {
+  display: flex;
+  background-color: #0059b3; /* яркий синий */
+  box-shadow: inset 0 -2px 0 #003366;
+}
+nav button {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  background-color: #0059b3;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  font-weight: 600;
+}
+nav button:hover, nav button.active {
+  background-color: #003366; /* тёмно-синий при наведении и активной вкладке */
+}
+section {
+  padding: 1rem 1.5rem;
+  display: none;
+}
+section.active {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 51, 102, 0.1);
+}
+th, td {
+  border: 1px solid #cce0ff; /* светло-синие границы */
+  padding: 0.5rem 0.8rem;
+  text-align: center;
+}
+th {
+  background-color: #0073e6; /* насыщенный синий заголовок */
+  color: white;
+  font-weight: 700;
+}
+input[type=text], input[type=number], select {
+  padding: 0.4rem;
+  margin: 0.3rem 0.6rem 0.3rem 0;
+  width: 150px;
+  border: 1px solid #0073e6;
+  border-radius: 3px;
+  color: #003366;
+  font-weight: 600;
+  background-color: #e6f0ff;
+  transition: border-color 0.3s;
+}
+input[type=text]:focus, input[type=number]:focus, select:focus {
+  border-color: #004080;
+  outline: none;
+  background-color: #d0e4ff;
+}
+label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+button.action-btn {
+  margin: 0.3rem 0.6rem 0.3rem 0;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  background-color: #0073e6;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  font-weight: 700;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 5px rgba(0,115,230,0.4);
+}
+button.action-btn:hover {
+  background-color: #004080;
+  box-shadow: 0 3px 8px rgba(0,64,128,0.6);
+}
+#graphCanvas {
+  max-width: 100%;
+  height: 400px;
+  background: #f0f8ff; /* очень светло-голубой фон */
+  border: 1px solid #0073e6;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,115,230,0.2);
+}
+.error {
+  color: #cc0000; /* красный для ошибок */
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+.success {
+  color: #006600; /* тёмно-зелёный для успеха */
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+.photo {
+  max-width: 150px;
+  border-radius: 50%;
+  margin-top: 1rem;
+  border: 3px solid #0073e6;
+  box-shadow: 0 0 8px rgba(0,115,230,0.5);
+}
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.flex-row > * {
+  margin-right: 1rem;
+}
+@media (max-width: 600px) {
+  input[type=text], input[type=number], select {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .flex-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .flex-row > * {
+    margin-right: 0;
+  }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Журнал оценок</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Подключаем библиотеку для конвертации кодировок -->
+  <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Журнал оценок</h1>
+</header>
+<nav>
+  <button class="tab-btn active" data-tab="upload">Загрузка оценок</button>
+  <button class="tab-btn" data-tab="edit">Редактирование журнала</button>
+  <button class="tab-btn" data-tab="stats-table">Статистика (таблица)</button>
+  <button class="tab-btn" data-tab="stats-graph">Статистика (графики)</button>
+  <button class="tab-btn" data-tab="help">Помощь</button>
+  <button class="tab-btn" data-tab="about">О программе</button>
+</nav>
+
+<section id="upload" class="active">
+  <h2>Загрузка оценок из файла</h2>
+  <p>Поддерживаемые форматы: <b>.csv, .txt</b> (табличный текст с разделителем запятая или табуляция)</p>
+  <input type="file" id="fileInput" accept=".csv,.txt,.xlsx" />
+  <button class="action-btn" id="loadFileBtn">Загрузить файл</button>
+  <div id="uploadMessage"></div>
+  <h3>Просмотр загруженных данных</h3>
+  <div style="overflow-x:auto;">
+    <table id="uploadTable">
+      <thead>
+        <tr id="uploadTableHeader"></tr>
+      </thead>
+      <tbody id="uploadTableBody"></tbody>
+    </table>
+  </div>
+  <p><i>Формат файла: Класс, ФИО, Предмет, Оценка</i></p>
+  <p><b>Пример CSV:</b></p>
+  <pre>
+10А,Иванов Иван Иванович,Математика,5
+10А,Петров Петр Петрович,Русский язык,4
+11Б,Сидорова Анна Сергеевна,Физика,3
+  </pre>
+</section>
+
+<section id="edit">
+  <h2>Создание и редактирование журнала</h2>
+  <div class="flex-row">
+    <label for="classInput">Класс:</label>
+    <input type="text" id="classInput" placeholder="Например, 10А" />
+    <label for="fioInput">ФИО:</label>
+    <input type="text" id="fioInput" placeholder="Фамилия Имя Отчество" />
+    <label for="subjectInput">Предмет:</label>
+    <input type="text" id="subjectInput" placeholder="Например, Математика" />
+    <label for="gradeInput">Оценка:</label>
+    <select id="gradeInput">
+      <option value="">--</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button class="action-btn" id="addRecordBtn">Добавить запись</button>
+    <button class="action-btn" id="saveJournalBtn">Сохранить журнал в файл</button>
+  </div>
+  <div id="editMessage"></div>
+  <h3>Журнал оценок</h3>
+  <div style="overflow-x:auto;">
+    <table id="journalTable">
+      <thead>
+        <tr>
+          <th>Класс</th>
+          <th>ФИО</th>
+          <th>Предмет</th>
+          <th>Оценка</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody id="journalTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="stats-table">
+  <h2>Статистика оценок (таблица)</h2>
+  <div id="statsTableContainer"></div>
+</section>
+
+<section id="stats-graph">
+  <h2>Статистика оценок (графики)</h2>
+  <canvas id="graphCanvas" width="900" height="400"></canvas>
+  <p>Выберите класс и предмет для графика:</p>
+  <div class="flex-row">
+    <label for="graphClassSelect">Класс:</label>
+    <select id="graphClassSelect">
+      <option value="all">Все классы</option>
+    </select>
+    <label for="graphSubjectSelect">Предмет:</label>
+    <select id="graphSubjectSelect">
+      <option value="all">Все предметы</option>
+    </select>
+    <button class="action-btn" id="drawGraphBtn">Показать график</button>
+  </div>
+</section>
+
+<section id="help">
+  <h2>Помощь</h2>
+  <p><b>Загрузка оценок:</b> Позволяет загрузить оценки из файла формата CSV или TXT. Файл должен содержать строки с данными: Класс, ФИО, Предмет, Оценка. После загрузки данные отображаются в таблице.</p>
+  <p><b>Редактирование журнала:</b> Позволяет вручную добавить, редактировать или удалить записи оценок. Для добавления заполните поля и нажмите "Добавить запись". Для редактирования нажмите "Редактировать" напротив записи, внесите изменения и сохраните. Для удаления нажмите "Удалить". Можно сохранить журнал в файл CSV.</p>
+  <p><b>Статистика (таблица):</b> Показывает статистику по оценкам для каждого класса и предмета, а также общую статистику по всем ученикам и предметам. Включает среднее значение, медиану, количество и процент учеников по каждой оценке.</p>
+  <p><b>Статистика (графики):</b> Визуализация статистики в виде столбчатых диаграмм. Можно выбрать класс и предмет для отображения.</p>
+  <p><b>О программе:</b> Информация о разработчике и контактные данные.</p>
+</section>
+
+<section id="about">
+  <h2>О программе</h2>
+  <p>Программа "Журнал оценок" - это простое web-приложение для ведения и анализа оценок учеников.</p>
+  <p>Разработчик: Нор Виктор Андреевич</p>
+  <p>Контакты: <a href="mailto:vitanok872@mail.ru">vitanok872@mail.ru</a></p>
+
+  <img src="https://sun4-22.userapi.com/impg/5kd8osFdzE5Z9-8tLvb_RCG_gQ9znurB7FAMCw/TRhPJtyUbqo.jpg?size=1620x2160&quality=95&sign=5ed974e9c7796b4ce527ca1a549f2ae1&type=album" alt="Фото разработчика" class="photo" />
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
